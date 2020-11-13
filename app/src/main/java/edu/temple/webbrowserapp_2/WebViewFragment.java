@@ -55,6 +55,21 @@ public class WebViewFragment extends Fragment {
         return view;
     }
 
+    public void loadUrl(String string)
+    {
+        webView.loadUrl(string);
+    }
+
+    public void goBack()
+    {
+        webView.goBack();
+    }
+
+    public void goForward()
+    {
+        webView.goForward();
+    }
+
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof WebViewFragmentListener) {

@@ -55,8 +55,20 @@ public class ViewPagerFragment extends Fragment {
 
     public void loadNewPage(String string)
     {
+        int index = viewPager.getCurrentItem();
+        fragments.get(index).loadUrl(string);
+    }
 
+    public void goBack()
+    {
+        int index = viewPager.getCurrentItem();
+        fragments.get(index).goBack();
+    }
 
+    public void goForward()
+    {
+        int index = viewPager.getCurrentItem();
+        fragments.get(index).goForward();
     }
 
     public void onAttach(Context context) {

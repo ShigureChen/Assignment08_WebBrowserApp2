@@ -32,11 +32,14 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
 
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        ft.add(R.id.container_page_control, pcf)
-                .add(R.id.container_browser_control, bcf)
-                .add(R.id.container_view_pager, vpf)
+        ft.add(R.id.container_view_pager, vpf)
+        .add(R.id.container_browser_control, bcf)
+        .add(R.id.container_page_control, pcf)
                 .commit();
     }
+
+
+
 
     @Override
     public void addPage() {
@@ -49,7 +52,7 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
         pcf.updateText(string);
     }
 
-    //PageControl to WebView
+    //PageControl to ViewPager
     @Override
     public void onURLSend(String string) {
 
@@ -64,11 +67,11 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
 
     @Override
     public void onNextButtonClick() {
-
+        vpf.goForward();
     }
 
     @Override
     public void onBackButtonClick() {
-
+        vpf.goBack();
     }
 }
