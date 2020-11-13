@@ -39,7 +39,7 @@ public class ViewPagerFragment extends Fragment {
 
             @Override
             public int getItemCount() {
-                return 0;
+                return fragments.size();
             }
         });
 
@@ -47,10 +47,16 @@ public class ViewPagerFragment extends Fragment {
         return view;
     }
 
-    public void addPage()
+    public void addNewTab()
     {
         fragments.add(new WebViewFragment());
         viewPager.getAdapter().notifyDataSetChanged();
+    }
+
+    public void loadNewPage(String string)
+    {
+
+
     }
 
     public void onAttach(Context context) {
