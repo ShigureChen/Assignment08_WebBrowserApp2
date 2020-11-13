@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <fragment
+        android:id="@+id/container_page_control"
+        android:name="edu.temple.webbrowserapp_2.PageControlFragment"
+        android:layout_width="389dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/container_view_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_browser-control"
+        tools:layout="@layout/fragment_page_control" />
+
+    <fragment
+        android:id="@+id/container_view_pager"
+        android:name="edu.temple.webbrowserapp_2.ViewPagerFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_page_control"
+        tools:layout="@layout/fragment_view_pager" />
+
+    <fragment
+        android:id="@+id/container_browser-control"
+        android:name="edu.temple.webbrowserapp_2.BrowserControlFragment"
+        android:layout_width="392dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/container_page_control"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_browser_control" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
