@@ -16,11 +16,12 @@ public class WebViewFragment extends Fragment {
 
     WebView webView;
     String string;
+    String pageTitle;
     WebViewFragmentListener listener;
 
     interface WebViewFragmentListener
     {
-        void onDataSend(String string);
+        void onDataSend(String string, String pageTitle);
     }
 
     @Override
@@ -49,7 +50,8 @@ public class WebViewFragment extends Fragment {
             {
                 super.onPageFinished(view, url);
                 string = webView.getUrl();
-                listener.onDataSend(string);
+                pageTitle = webView.getTitle();
+                listener.onDataSend(string, pageTitle);
             }
         });
         return view;

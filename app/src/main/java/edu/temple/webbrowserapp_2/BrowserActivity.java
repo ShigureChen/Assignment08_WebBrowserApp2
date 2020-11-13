@@ -48,7 +48,8 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
 
     //WebView to PageControl
     @Override
-    public void onDataSend(String string) {
+    public void onDataSend(String string, String pageTitle) {
+        this.setTitle(pageTitle);
         pcf.updateText(string);
     }
 
