@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ public class ViewPagerFragment extends Fragment {
 
     interface ViewPagerFragmentListener
     {
-
+        void onTabChange(String string, String pageTitle);
     }
 
     @Override
@@ -43,6 +45,29 @@ public class ViewPagerFragment extends Fragment {
             }
         });
 
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                String string = new String();
+                String pageTitle = new String();
+                int index = viewPager.getCurrentItem();
+                string = fragments.get(index).webView.getUrl().toString();
+                pageTitle = fragments.get(index).webView.getTitle().toString();
+                listener.onTabChange(string, pageTitle);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+
+            }
+        });
 
         return view;
     }

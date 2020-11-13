@@ -2,11 +2,12 @@ package edu.temple.webbrowserapp_2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class BrowserActivity extends AppCompatActivity implements ViewPagerFragment.ViewPagerFragmentListener, PageControlFragment.PageControlFragmentListener, BrowserControlFragment.BrowserControlFragmentListener, WebViewFragment.WebViewFragmentListener {
 
@@ -16,70 +17,61 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
     PageListFragment plf;
     TextView textView;
     FragmentManager fm;
-    FragmentTransaction ft;
+    ArrayList<WebViewFragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        int config = getResources().getConfiguration().orientation;
 
         textView = findViewById(R.id.textView);
         textView.setText("Press + button to add a new tab");
         textView.setTextSize(14);
-        pcf = new PageControlFragment();
-        vpf = new ViewPagerFragment();
-        bcf = new BrowserControlFragment();
-        plf = new PageListFragment();
 
         fm = getSupportFragmentManager();
-        ft = fm.beginTransaction();
-        ft.add(R.id.container_view_pager, vpf)
-                .add(R.id.container_browser_control, bcf)
-                .add(R.id.container_page_control, pcf)
-                .addToBackStack(null)
-                .commit();
+
+        pcf = (PageControlFragment) fm.findFragmentById(R.id.container_page_control);
+        if(pcf == null)
+        {
+            pcf = new PageControlFragment();
+            fm.beginTransaction().add(R.id.container_page_control, pcf).commit();
+        }
+
+        bcf = (BrowserControlFragment) fm.findFragmentById((R.id.container_browser_control));
+        if (bcf == null) {
+            bcf = new BrowserControlFragment();
+            fm.beginTransaction().add(R.id.container_browser_control, bcf).commit();
+        }
+
+        vpf = (ViewPagerFragment) fm.findFragmentById(R.id.container_page_list);
+        if(vpf == null)
+        {
+            vpf = new ViewPagerFragment();
+            fm.beginTransaction().add(R.id.container_view_pager, vpf).commit();
+        }
+
+        plf = (PageListFragment) fm.findFragmentById(R.id.container_page_list);
+        if (plf == null && config == Configuration.ORIENTATION_LANDSCAPE) {
+            plf = new PageListFragment();
+            fm.beginTransaction().add(R.id.container_page_list, plf).commit();
+        }
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        String url = pcf.editText.getText().toString();
-        String pageTitle = this.getTitle().toString();
-        savedInstanceState.putString("url", url);
-        savedInstanceState.putString("pageTitle", pageTitle);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-        savedInstanceState.getString("url");
-        savedInstanceState.getString("pageTitle");
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            fm = getSupportFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.container_view_pager, vpf)
-                    .replace(R.id.container_browser_control, bcf)
-                    .replace(R.id.container_page_control, pcf)
-                    .replace(R.id.container_page_list, plf)
-                    .commit();
-        }
-        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
-            fm = getSupportFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.container_view_pager, vpf)
-                    .replace(R.id.container_browser_control, bcf)
-                    .replace(R.id.container_page_control, pcf)
-                    .commit();
-        }
     }
 
     @Override
@@ -116,5 +108,11 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
     @Override
     public void onBackButtonClick() {
         vpf.goBack();
+    }
+
+    @Override
+    public void onTabChange(String string, String pageTitle) {
+        pcf.updateText(string);
+        this.setTitle(pageTitle);
     }
 }
