@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_portrait"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BrowserActivity">
 
     <fragment
         android:id="@+id/container_page_control"
@@ -15,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/container_view_pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_browser-control"
+        app:layout_constraintTop_toBottomOf="@+id/container_browser_control"
         tools:layout="@layout/fragment_page_control" />
 
     <fragment
@@ -30,7 +31,7 @@
         tools:layout="@layout/fragment_view_pager" />
 
     <fragment
-        android:id="@+id/container_browser-control"
+        android:id="@+id/container_browser_control"
         android:name="edu.temple.webbrowserapp_2.BrowserControlFragment"
         android:layout_width="392dp"
         android:layout_height="52dp"
