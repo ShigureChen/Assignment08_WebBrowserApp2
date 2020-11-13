@@ -51,6 +51,7 @@ public class ViewPagerFragment extends Fragment {
     {
         fragments.add(new WebViewFragment());
         viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.setCurrentItem(fragments.size());
     }
 
     public void loadNewPage(String string)

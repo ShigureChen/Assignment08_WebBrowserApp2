@@ -13,7 +13,7 @@
         <activity android:name=".BrowserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"
-                    android:configChanges="orientation|keyboardHidden"/>
+                    android:configChanges="orientation|screenSize"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
