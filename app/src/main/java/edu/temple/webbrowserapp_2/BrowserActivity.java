@@ -70,6 +70,7 @@ public class BrowserActivity extends AppCompatActivity implements PageListFragme
     public void addPage() {
         vpf.addNewTab();
         this.textView.setText("");
+        plf.onTabAdded("Google");
     }
 
     //WebView to PageControl
