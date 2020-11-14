@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class BrowserActivity extends AppCompatActivity implements ViewPagerFragment.ViewPagerFragmentListener, PageControlFragment.PageControlFragmentListener, BrowserControlFragment.BrowserControlFragmentListener, WebViewFragment.WebViewFragmentListener {
+public class BrowserActivity extends AppCompatActivity implements PageListFragment.PageListFragmentListener,
+        ViewPagerFragment.ViewPagerFragmentListener,
+        PageControlFragment.PageControlFragmentListener,
+        BrowserControlFragment.BrowserControlFragmentListener,
+        WebViewFragment.WebViewFragmentListener {
 
     PageControlFragment pcf;
     ViewPagerFragment vpf;
@@ -17,13 +21,15 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
     PageListFragment plf;
     TextView textView;
     FragmentManager fm;
-    ArrayList<WebViewFragment> fragments;
+    ArrayList<String> fragmentsList;
+    int config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int config = getResources().getConfiguration().orientation;
+        config = getResources().getConfiguration().orientation;
+        this.setTitle("WedBrowser");
 
         textView = findViewById(R.id.textView);
         textView.setText("Press + button to add a new tab");
@@ -35,45 +41,31 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
         if(pcf == null)
         {
             pcf = new PageControlFragment();
-            fm.beginTransaction().add(R.id.container_page_control, pcf).commit();
+            fm.beginTransaction().add(R.id.container_page_control, pcf).commitNow();
         }
 
         bcf = (BrowserControlFragment) fm.findFragmentById((R.id.container_browser_control));
         if (bcf == null) {
             bcf = new BrowserControlFragment();
-            fm.beginTransaction().add(R.id.container_browser_control, bcf).commit();
+            fm.beginTransaction().add(R.id.container_browser_control, bcf).commitNow();
         }
 
-        vpf = (ViewPagerFragment) fm.findFragmentById(R.id.container_page_list);
+        vpf = (ViewPagerFragment) fm.findFragmentById(R.id.container_view_pager);
         if(vpf == null)
         {
             vpf = new ViewPagerFragment();
-            fm.beginTransaction().add(R.id.container_view_pager, vpf).commit();
+            fm.beginTransaction().add(R.id.container_view_pager, vpf).commitNow();
         }
 
         plf = (PageListFragment) fm.findFragmentById(R.id.container_page_list);
         if (plf == null && config == Configuration.ORIENTATION_LANDSCAPE) {
             plf = new PageListFragment();
-            fm.beginTransaction().add(R.id.container_page_list, plf).commit();
+            fm.beginTransaction().add(R.id.container_page_list, plf).commitNow();
         }
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
+    //BrowserControl to ViewPager and PageList
     @Override
     public void addPage() {
         vpf.addNewTab();
@@ -110,9 +102,25 @@ public class BrowserActivity extends AppCompatActivity implements ViewPagerFragm
         vpf.goBack();
     }
 
+
+    //ViewPager to PageControl
     @Override
     public void onTabChange(String string, String pageTitle) {
         pcf.updateText(string);
         this.setTitle(pageTitle);
+    }
+
+
+    //PageList to ViewPager
+    @Override
+    public void onTabClicked(int position) {
+        vpf.moveToTab(position);
+    }
+
+    //ViewPager to PageList
+    @Override
+    public void onTitleSend(String pageTitle, int position)
+    {
+
     }
 }

@@ -24,6 +24,13 @@ public class ViewPagerFragment extends Fragment {
     interface ViewPagerFragmentListener
     {
         void onTabChange(String string, String pageTitle);
+        void onTitleSend(String pageTitle, int position);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -56,17 +63,6 @@ public class ViewPagerFragment extends Fragment {
                 pageTitle = fragments.get(index).webView.getTitle().toString();
                 listener.onTabChange(string, pageTitle);
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-
-            }
         });
 
         return view;
@@ -97,6 +93,11 @@ public class ViewPagerFragment extends Fragment {
         fragments.get(index).goForward();
     }
 
+    public void moveToTab(int position)
+    {
+        viewPager.setCurrentItem(position);
+    }
+
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ViewPagerFragmentListener) {
@@ -106,5 +107,10 @@ public class ViewPagerFragment extends Fragment {
                     + " must implement FragmentListener");
         }
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 }
