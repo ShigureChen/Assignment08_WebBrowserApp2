@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ public class ViewPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
         fragments = new ArrayList<>();
         viewPager = view.findViewById(R.id.viewPager);
+
         viewPager.setAdapter(new FragmentStateAdapter(getActivity()) {
             @NonNull
             @Override
