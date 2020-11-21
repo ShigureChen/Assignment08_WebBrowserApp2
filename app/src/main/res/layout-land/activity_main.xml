@@ -8,10 +8,11 @@
     <fragment
         android:id="@+id/container_page_control"
         android:name="edu.temple.webbrowserapp_2.PageControlFragment"
-        android:layout_width="784dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/container_browser_control"
+        android:layout_width="783dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="46dp"
+        app:layout_constraintBottom_toTopOf="@+id/container_page_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,24 +24,52 @@
         android:name="edu.temple.webbrowserapp_2.ViewPagerFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/container_browser_control"
+        app:layout_constraintStart_toEndOf="@+id/container_page_list"
         app:layout_constraintTop_toBottomOf="@+id/container_page_control"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout="@layout/fragment_view_pager" />
 
     <fragment
         android:id="@+id/container_browser_control"
         android:name="edu.temple.webbrowserapp_2.BrowserControlFragment"
-        android:layout_width="113dp"
-        android:layout_height="43dp"
+        android:layout_width="115dp"
+        android:layout_height="47dp"
         android:layout_marginStart="7dp"
         android:layout_marginBottom="296dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/container_view_pager"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_page_control"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/fragment_browser_control" />
+
+    <fragment
+        android:id="@+id/container_page_list"
+        android:name="edu.temple.webbrowserapp_2.PageListFragment"
+        android:layout_width="112dp"
+        android:layout_height="244dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/container_view_pager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_page_control"
+        tools:layout="@layout/fragment_page_list" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="372dp"
+        android:layout_marginBottom="156dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
